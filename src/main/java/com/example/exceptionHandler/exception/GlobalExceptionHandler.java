@@ -15,15 +15,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException itemNotFoundException
             , WebRequest request) {
-        return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND, request);
+        return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND);
     }
 
 
     private ResponseEntity<Object> buildErrorResponse(Exception exception,
-                                                      HttpStatus httpStatus,
-                                                      WebRequest request) {
+                                                      HttpStatus httpStatus) {
 
-        ErrorResponse errorResponse = new ErrorResponse(httpStatus.value(), exception.getMessage());
+        var errorResponse = new ErrorResponse(httpStatus.value(), exception.getMessage());
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
 }
